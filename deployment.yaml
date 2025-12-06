@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pumpkin_be
+  labels:
+    app: pumpkin_be
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: pumpkin_be
+  template:
+    metadata:
+      labels:
+        app: pumpkin_be
+    spec:
+      containers:
+        - name: pumpkin_be
+          image: elvishishaan/pumpkin-be:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - secretRef:
+                name: pumpkin-secret
+
+      imagePullSecrets:
+        - name: regcred
