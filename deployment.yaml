@@ -1,28 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pumpkin_be
-  labels:
-    app: pumpkin_be
+  name: pumpkin-be
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: pumpkin_be
+      app: pumpkin-be
   template:
     metadata:
       labels:
-        app: pumpkin_be
+        app: pumpkin-be
     spec:
       containers:
-        - name: pumpkin_be
-          image: elvishishaan/pumpkin-be:latest
-          imagePullPolicy: Always
+        - name: pumpkin-be
+          image: yourdocker/pumpkin-be:latest
           ports:
             - containerPort: 8080
           envFrom:
             - secretRef:
                 name: pumpkin-secret
-
-      imagePullSecrets:
-        - name: regcred
+          volumeMounts:
+            - name: env-volume
+              mountPath: /app/.env
+              subPath: .env
+      volumes:
+        - name: env-volume
+          secret:
+            secretName: pumpkin-secret
+            items:
+              - key: .env
+                path: .env

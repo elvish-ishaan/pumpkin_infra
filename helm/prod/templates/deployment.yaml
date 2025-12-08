@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "pumpkin-be.fullname" . }}
+  labels:
+    app: {{ include "pumpkin-be.name" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "pumpkin-be.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "pumpkin-be.name" . }}
+    spec:
+      imagePullSecrets:
+        {{- range .Values.imagePullSecrets }}
+                - name: {{ .name }}
+        {{- end }}
+      containers:
+        - name: pumpkin-be
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - secretRef:
+                name: pumpkin-secret
