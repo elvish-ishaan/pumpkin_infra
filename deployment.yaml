@@ -2,8 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pumpkin-be
+  namespace: pumpkin-be
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: pumpkin-be
@@ -14,7 +15,7 @@ spec:
     spec:
       containers:
         - name: pumpkin-be
-          image: yourdocker/pumpkin-be:latest
+          image: elvishishaan/pumpkin-be:latest
           ports:
             - containerPort: 8080
           envFrom:
