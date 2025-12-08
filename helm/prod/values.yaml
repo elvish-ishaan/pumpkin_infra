@@ -2,7 +2,7 @@ replicaCount: 2
 
 image:
   repository: elvishishaan/pumpkin-be
-  tag: "latest"
+  tag: "3db77daa198b6f83171caba56f3c4a9d34a88703"
   pullPolicy: Always
 
 imagePullSecrets:
