@@ -1,23 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "pumpkin-be.fullname" . }}
+  name: pumpkin-be
   labels:
-    app: {{ include "pumpkin-be.name" . }}
+    app: pumpkin-be
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ include "pumpkin-be.name" . }}
+      app: pumpkin-be
   template:
     metadata:
       labels:
-        app: {{ include "pumpkin-be.name" . }}
+        app: pumpkin-be
     spec:
       imagePullSecrets:
-        {{- range .Values.imagePullSecrets }}
-                - name: {{ .name }}
-        {{- end }}
+        - name: regcred
       containers:
         - name: pumpkin-be
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
