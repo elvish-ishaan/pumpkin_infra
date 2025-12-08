@@ -2,8 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pumpkin-be
-  labels:
-    app: pumpkin-be
+  namespace: pumpkin-be
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -14,14 +13,23 @@ spec:
       labels:
         app: pumpkin-be
     spec:
-      imagePullSecrets:
-        - name: regcred
       containers:
         - name: pumpkin-be
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 8080
           envFrom:
             - secretRef:
                 name: pumpkin-secret
+          volumeMounts:
+            - name: env-volume
+              mountPath: /app/.env
+              subPath: .env
+      volumes:
+        - name: env-volume
+          secret:
+            secretName: pumpkin-secret
+            items:
+              - key: .env
+                path: .env
+
