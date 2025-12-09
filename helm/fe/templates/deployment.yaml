@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pumpkin-fe
-  namespace: pumpkin-fe
+  name: pumpkin-be
+  namespace: pumpkin-be
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: pumpkin-fe
+      app: pumpkin-be
   template:
     metadata:
       labels:
-        app: pumpkin-fe
+        app: pumpkin-be
     spec:
       containers:
-        - name: pumpkin-fe
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        - name: pumpkin-be
+          image: elvishishaan/pumpkin-be:latest
           ports:
-            - containerPort: 3000
+            - containerPort: 8080
           envFrom:
             - secretRef:
-                name: pumpkin-fe-secret
+                name: pumpkin-secret
           volumeMounts:
             - name: env-volume
               mountPath: /app/.env
@@ -28,7 +28,7 @@ spec:
       volumes:
         - name: env-volume
           secret:
-            secretName: pumpkin-fe-secret
+            secretName: pumpkin-secret
             items:
               - key: .env
                 path: .env

@@ -1,8 +1,8 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: pumpkin-fe-ingress
-  namespace: pumpkin-fe
+  name: pumpkin-ingress
+  namespace: pumpkin-be
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
@@ -10,16 +10,16 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - pumpkin-k8s.dryink.space
-      secretName: pumpkin-fe-tls
+        - api.dryink.space
+      secretName: pumpkin-tls
   rules:
-    - host: pumpkin-k8s.dryink.space
+    - host: api.dryink.space
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: pumpkin-fe-service
+                name: pumpkin-be-service
                 port:
                   number: 80
