@@ -1,0 +1,25 @@
+replicaCount: 2
+
+image:
+  repository: elvishishaan/pumpkin-fe
+  tag: "latest"
+  pullPolicy: Always
+
+imagePullSecrets:
+  - name: regcred
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 3000
+
+ingress:
+  enabled: true
+  className: nginx
+  host: pumpkin.dryink.space
+  path: /
+  pathType: Prefix
+
+secret:
+  enabled: true
+  envFileBase64: ""
