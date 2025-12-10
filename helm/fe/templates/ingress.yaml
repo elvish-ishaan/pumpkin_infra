@@ -10,10 +10,10 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - pumpkin-k8s.dryink.space
+        - pumpkin-k8s-fe.dryink.space
       secretName: pumpkin-fe-tls
   rules:
-    - host: pumpkin-k8s.dryink.space
+    - host: pumpkin-k8s-fe.dryink.space
       http:
         paths:
           - path: /
