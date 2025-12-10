@@ -6,8 +6,8 @@ metadata:
 spec:
    secretName: pumpkin-be-tls
    issuerRef:
-   name: letsencrypt-prod
-   kind: ClusterIssuer
+     name: letsencrypt-prod
+     kind: ClusterIssuer
    dnsNames:
      - pumpkin-k8s-api.dryink.space
 
