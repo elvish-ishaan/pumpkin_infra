@@ -2,7 +2,7 @@ replicaCount: 2
 
 image:
   repository: elvishishaan/pumpkin-fe
-  tag: "22fd3a81a33a89ae93a007b54f581dad4512689c"
+  tag: "0be3a1f95350d92ebb8daefe3f6f6c0f2fa5962f"
   pullPolicy: Always
 
 imagePullSecrets:
