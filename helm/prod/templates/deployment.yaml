@@ -20,8 +20,8 @@ spec:
             - containerPort: 8080
           resources:
             requests:
-              cpu: "100m"
-              memory: "256Mi"
+              cpu: "100m"  #it mean you are giving 0.1 CPU core coz 1000m = 1 CPU core
+              memory: "256Mi" # it means 1 Mi (mebibytes) = 1.05 MB it means 256Mi = 256MB of RAM
             limits:
               cpu: "500m"
               memory: "512Mi"
